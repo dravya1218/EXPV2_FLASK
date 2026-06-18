@@ -1,0 +1,33 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin Summary{% endblock %}
+
+{% block content %}
+
+<h1>Admin Summary</h1>
+
+{% if users %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Expense Count</th>
+        <th>Total Amount</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u["id"] }}</td>
+        <td>{{ u["username"] }}</td>
+        <td>{{ u["email"] }}</td>
+        <td>{{ u["role"] }}</td>
+        <td>{{ u["expense_count"] }}</td>
+        <td>{{ u["total_amount"] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

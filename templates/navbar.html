@@ -1,0 +1,44 @@
+<nav>
+    {% if session.get('user_id') %}
+
+        <a class="{% if request.endpoint == 'expense.add_expense' %}active{% endif %}"
+           href="{{ url_for('expense.add_expense') }}">
+           Home
+        </a>
+
+        <a class="{% if request.endpoint == 'expense.expense' and request.args.get('mode') == 'view' %}active{% endif %}"
+           href="{{ url_for('expense.expense', mode='view') }}">
+           Expense
+        </a>
+
+        <a class="{% if request.args.get('mode') == 'update' or request.endpoint == 'expense.update' %}active{% endif %}"
+           href="{{ url_for('expense.expense', mode='update') }}">
+           Update
+        </a>
+
+        <a class="{% if request.args.get('mode') == 'delete' or request.endpoint in ['expense.delete_confirm', 'expense.delete'] %}active{% endif %}"
+           href="{{ url_for('expense.expense', mode='delete') }}">
+           Delete
+        </a>
+
+        <a class="{% if request.endpoint in ['profile.profile', 'profile.edit_profile', 'profile.update_password'] %}active{% endif %}"
+           href="{{ url_for('profile.profile') }}">
+           Profile
+        </a>
+
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+
+    {% else %}
+
+        <a class="{% if request.endpoint == 'auth.user_login' %}active{% endif %}"
+           href="{{ url_for('auth.user_login') }}">
+           Login
+        </a>
+
+        <a class="{% if request.endpoint == 'auth.user_sign_up' %}active{% endif %}"
+           href="{{ url_for('auth.user_sign_up') }}">
+           Sign Up
+        </a>
+
+    {% endif %}
+</nav>

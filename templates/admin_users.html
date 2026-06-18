@@ -1,0 +1,38 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin Users{% endblock %}
+
+{% block content %}
+
+<h1>Admin Users</h1>
+
+{% if users %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Created At</th>
+        <th>Action</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u["id"] }}</td>
+        <td>{{ u["username"] }}</td>
+        <td>{{ u["email"] }}</td>
+        <td>{{ u["role"] }}</td>
+        <td>{{ u["created_at"] }}</td>
+        <td>
+            <a class="btn btn-delete"
+               href="{{ url_for('admin.user_delete_confirmation', id=u['id']) }}">
+               Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

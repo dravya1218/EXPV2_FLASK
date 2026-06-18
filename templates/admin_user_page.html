@@ -1,0 +1,41 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Delete User{% endblock %}
+
+{% block content %}
+
+<h1>Delete User Confirmation</h1>
+
+{% if users %}
+<table>
+    <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Created At</th>
+        <th>Confirmation</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u["id"] }}</td>
+        <td>{{ u["username"] }}</td>
+        <td>{{ u["email"] }}</td>
+        <td>{{ u["role"] }}</td>
+        <td>{{ u["created_at"] }}</td>
+        <td>
+            <form action="{{ url_for('admin.user_delete_confirmation', id=u['id']) }}" method="POST">
+                <button class="btn-delete" type="submit">Delete</button>
+                <a class="btn btn-cancel"
+                   href="{{ url_for('admin.admin_users') }}">
+                   Cancel
+                </a>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

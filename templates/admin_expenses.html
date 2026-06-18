@@ -1,0 +1,35 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin Expenses{% endblock %}
+
+{% block content %}
+
+<h1>All User Expenses</h1>
+
+{% if users %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Email</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u["id"] }}</td>
+        <td>{{ u["name"] }}</td>
+        <td>{{ u["amount"] }}</td>
+        <td>{{ u["category"] }}</td>
+        <td>{{ u["user_id"] }}</td>
+        <td>{{ u["username"] }}</td>
+        <td>{{ u["email"] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

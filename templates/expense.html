@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Expenses{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <p>{{error}}</p>
+    {% endif %}
+
+    <h1>expenses</h1>
+    {% if expenses %}
+    <form action="{{url_for('expense.expense')}}" method="GET">
+        <input type="text" name="name" placeholder="Search by name">
+
+        <input type="text" name="category" placeholder="Category">
+
+        <input type="number" name="min_amount" placeholder="Min amount">
+
+        <input type="number" name="max_amount" placeholder="Max amount">
+
+        <input type="hidden" name="mode" value="{{mode}}">
+
+        <button type="submit">Filter</button>
+    </form>
+    {% if mode=='view' %}
+        <table >
+            <tr>
+                <th>TOTAl</th>
+                <th>COUNT</th>
+            </tr>
+            <tr>
+                <td>{{result["total"]}}</td>
+                <td>{{result["count"]}}</td>
+            </tr>
+        </table>
+        <table >
+            <tr>
+                <th>CATEGORY</th>
+                <th>TOTAL</th>
+                <th>COUNT</th>
+            </tr>
+            {% for cat in category_summary %}
+            <tr>
+                <td>{{cat["category"]}}</td>
+                <td>{{cat["total"]}}</td>
+                <td>{{cat["count"]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}   
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>AMOUNT</th>
+                <th>CATEGORY</th>
+                <th>USER_ID</th>
+                <th>ACTION</th>
+            </tr>
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{expense["id"]}}</td>
+                    <td>{{expense["name"]}}</td>
+                    <td>{{expense["amount"]}}</td>
+                    <td>{{expense["category"]}}</td>
+                    <td>{{expense["user_id"]}}</td>
+                    <td>{% if mode=='update' %}
+                            <a href="{{url_for('expense.update',id=expense['id'],mode='update')}}">update</a>
+                        {% elif mode=='delete' %}
+                            <a href="{{url_for('expense.delete_confirm',id=expense['id'],mode='delete')}}">delete</a>
+                        {% elif mode=='view' %}
+                            <span>View only</span>
+                        {% endif %}
+                    </td>
+                </tr>   
+            {% endfor %}
+        </table>
+        
+    {% endif %}
+
+{% endblock %}

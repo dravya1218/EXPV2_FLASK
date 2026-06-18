@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Expense{% endblock %}
+
+{% block content %}
+
+<h1>
+    {% if mode == "update" %}
+        Update Expense
+    {% elif mode == "delete" %}
+        Delete Expense
+    {% else %}
+        Add Expense
+    {% endif %}
+</h1>
+
+<form action="{% if mode=='update' %}
+{{ url_for('expense.update', id=expense.id) }}
+{% elif mode=='delete' %}
+{{ url_for('expense.delete', id=expense.id) }}
+{% else %}
+{{ url_for('expense.add_expense') }}
+{% endif %}" method="POST">
+<div>
+
+            <label for="Name">Name
+
+                <input type="text" id="Name" name="name" placeholder="Enter Name" 
+
+                value="{{expense.name if mode in ['update','delete'] else''}}">
+
+            </label>
+
+        </div>
+
+        <div>
+
+            <label for="Amount">Amount
+
+                <input type="number" step="0.01" id="Amount" name="amount" placeholder="Enter Amount" 
+
+                value="{{expense.amount if mode in ['update','delete'] else''}}">
+
+            </label>
+
+        </div>       
+
+        <div>
+
+            <label for="cat">Category
+
+                <select id="cat" name="category">
+
+                    <option value="Food" {% if mode in ['update' , 'delete' ] and expense.category|lower == 'food' %}
+
+                    selected{% endif %}>Food</option>
+
+                    <option value="Travel" {% if mode in ['update' , 'delete' ] and expense.category|lower == 'travel' %}
+
+                    selected{% endif %}>Travel</option>
+
+                    <option value="Shopping" {% if mode in ['update' , 'delete' ] and expense.category|lower == 'shopping' %}
+
+                    selected{% endif %}>Shopping</option>
+
+                    <option value="Bills" {% if mode in ['update' , 'delete' ] and expense.category|lower == 'bills' %}
+
+                    selected{% endif %}>Bills</option>
+
+                </select>
+
+            </label>
+
+        </div>
+
+        {% if mode=='delete' %}
+
+            <button class="btn-delete" type="submit">Delete</button>
+
+            <a class="btn btn-cancel" href="{{url_for('expense.expense',mode='view')}}">Cancle</a>
+
+        {% elif mode=='update' %}
+
+            <button type="submit">Update</button>
+
+            <a class="btn btn-cancel" href="{{url_for('expense.expense',mode='view')}}">Cancle</a>
+
+        {% else %}
+
+            <button type="submit">Add</button>
+
+        {% endif %}
+
+</form>
+
+{% endblock %}

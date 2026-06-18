@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if error %}
+    <p>{{error}}</p>
+    {% endif %}
+
+    {% if user %}
+    <form action="{{url_for('profile.edit_profile')}}" method="POST">
+        <div>
+        <label for="name">Username
+            <input type="text" id="name" name="username" value="{{user['username']}}">
+        </label>
+        </div>
+
+        <div>
+        <label for="mail">Email
+            <input type="email" id="mail" name="email" value="{{user['email']}}">
+        </label>
+        </div>
+        <button type="submit">edit</button>
+        <a href="{{url_for('profile.profile')}}">Cancle</a>
+    </form>
+    {% endif %}
+</body>
+</html>

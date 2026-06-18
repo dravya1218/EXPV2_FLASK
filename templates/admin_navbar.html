@@ -1,0 +1,13 @@
+<nav>
+    <a class="{% if request.endpoint == 'admin.admin_users' %}active{% endif %}"
+       href="{{ url_for('admin.admin_users') }}">Users</a>
+
+    <a class="{% if request.endpoint == 'admin.admin_summary' %}active{% endif %}"
+       href="{{ url_for('admin.admin_summary') }}">Summary</a>
+
+    <a class="{% if request.endpoint == 'admin.admin_expenses' %}active{% endif %}"
+       href="{{ url_for('admin.admin_expenses') }}">All Expenses</a>
+
+    <a href="{{ url_for('expense.add_expense') }}">User Home</a>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+</nav>
