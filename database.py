@@ -1,5 +1,7 @@
+import os
 import sqlite3
-db_name="finance_tracker.db"
+db_name=os.getenv("DB_NAME","finance_tracker.db")
+
 def get_user_connection():
     conn=sqlite3.connect(db_name)
     conn.execute("PRAGMA foreign_keys = ON")

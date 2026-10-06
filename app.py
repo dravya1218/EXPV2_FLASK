@@ -11,7 +11,7 @@ from routes.profile import profile_bp
 create_user_table()
 create_expense_table()
 app=Flask(__name__)
-app.secret_key="temporary_secret_key"
+app.secret_key=os.getenv("SECRET_KEY")
 app.register_blueprint(auth_bp)
 app.register_blueprint(profile_bp)
 app.register_blueprint(expense_bp)
