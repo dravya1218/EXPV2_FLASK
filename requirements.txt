@@ -1,3 +1,5 @@
 Flask
 Werkzeug
+libsql-client
+python-dotenv
 gunicorn
